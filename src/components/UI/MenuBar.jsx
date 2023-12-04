@@ -8,10 +8,11 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import TimeToLeaveIcon from '@mui/icons-material/TimeToLeave';
 import {Container, Menu, MenuItem} from "@mui/material";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 
-const pages = ['home', 'repair', 'catalog'];
+const pages = ['home', 'repair', 'catalog', 'dashboard'];
 
 export const MenuBar = ({ isAuthenticated }) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -113,7 +114,7 @@ export const MenuBar = ({ isAuthenticated }) => {
                         {pages.map((page) => (
                             <Button
                                 component={Link}
-                                to="/login"
+                                to={`/${page}`}
                                 key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -123,7 +124,17 @@ export const MenuBar = ({ isAuthenticated }) => {
                         ))}
                     </Box>
                     {
-                        isAuthenticated ? <Button component={Link} to="/profile" color="inherit">Profile</Button>
+                        isAuthenticated ? <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                color="inherit"
+                                component={Link}
+                                to='/profile'
+                            >
+                                <AccountCircleIcon />
+                            </IconButton>
                     :
                             <Fragment>
                                 <Button component={Link} to="/login" color="inherit">Login</Button>
