@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Grid, Card, CardContent, CardMedia, Typography, Button, Pagination} from '@mui/material';
 import axios from "axios";
+import {connect} from "react-redux";
+import {add_items} from "../actions/service";
+import {Navigate} from "react-router-dom";
 
 
-const Catalog = () => {
+const Catalog = ({isAuthenticated, order_id, username, password, add_items}) => {
 
     const [spares, setSpares] = useState(null);
     const [count, setCount] = useState(null);
@@ -33,6 +36,10 @@ const Catalog = () => {
         load(value)
     };
 
+    const handleAddCart = (event, value, spare) => {
+        add_items({username: username, password: password, item_price: spare.price, order_id: order_id, spare_id: spare.id});
+    }
+
     useEffect(() => {
         load().then(r => {        })
     }, [])
@@ -51,7 +58,7 @@ const Catalog = () => {
                             <CardMedia
                                 component="img"
                                 height="400"
-                                image="/logo512.png"
+                                image={spare.image ? spare.image : "/logo512.png"}
                                 alt={spare.name}
                             />
                             <CardContent>
@@ -64,9 +71,12 @@ const Catalog = () => {
                                 <Typography variant="h6" color="primary">
                                     ${spare.price}
                                 </Typography>
-                                <Button variant="contained" color="primary">
+                                { isAuthenticated ?
+                                <Button variant="contained" color="primary" onClick={(event) => handleAddCart(event, page, spare)}>
                                     Add to Cart
                                 </Button>
+                                    : <div></div>
+                                }
                             </CardContent>
                         </Card>
                     </Grid>
@@ -83,4 +93,11 @@ const Catalog = () => {
     );
 };
 
-export default Catalog;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    order_id: state.service.order_id,
+    username: state.auth.username,
+    password: state.auth.password,
+});
+
+export default connect(mapStateToProps, { add_items })(Catalog);

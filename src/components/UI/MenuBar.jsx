@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import TimeToLeaveIcon from '@mui/icons-material/TimeToLeave';
 import {Container, Menu, MenuItem} from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 
@@ -124,17 +125,31 @@ export const MenuBar = ({ isAuthenticated }) => {
                         ))}
                     </Box>
                     {
-                        isAuthenticated ? <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                color="inherit"
-                                component={Link}
-                                to='/profile'
-                            >
-                                <AccountCircleIcon />
-                            </IconButton>
+                        isAuthenticated ?
+                            <Fragment>
+                                <IconButton
+                                    size="large"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                    component={Link}
+                                    to='/profile'
+                                >
+                                    <AccountCircleIcon />
+                                </IconButton>
+                                <IconButton
+                                    size="large"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                    component={Link}
+                                    to="/cart"
+                                >
+                                    <ShoppingBasketIcon />
+                                </IconButton>
+                            </Fragment>
                     :
                             <Fragment>
                                 <Button component={Link} to="/login" color="inherit">Login</Button>

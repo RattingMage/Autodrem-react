@@ -9,6 +9,7 @@ import MenuBar from "./components/UI/MenuBar";
 import Repair from "./components/Repair";
 import Catalog from "./components/Catalog";
 import Profile from "./components/Profile";
+import ShopingCart from "./components/ShopingCart";
 
 
 
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/repair" element={<Repair/>} />
             <Route path="/catalog" element={<Catalog/>} />
+            <Route path="/cart" element={<ShopingCart/>} />
           </Routes>
         </Router>
   );

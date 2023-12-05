@@ -1,12 +1,14 @@
 import {LOAD_CARS, LOAD_USER, LOGIN, LOGOUT, SIGNUP} from "./types";
 
 const initialState = {
+    id: null,
     username:"",
     password:"",
     first_name:"",
     last_name:"",
     email:"",
     isAuthenticated: false,
+    isStaff: false,
     cars: []
 };
 
@@ -16,11 +18,13 @@ const authReducer = (state = initialState, action) => {
         case LOGIN:
             return {
                 ...state,
+                id: payload.id,
                 username: payload.username,
                 first_name: payload.first_name,
                 last_name: payload.last_name,
                 email: payload.email,
                 password: payload.password,
+                is_staff: payload.is_staff,
                 isAuthenticated: true,
             };
         case SIGNUP:
@@ -42,10 +46,12 @@ const authReducer = (state = initialState, action) => {
         case LOAD_USER:
             return {
                 ...state,
+                id: payload.id,
                 username: payload.username,
                 first_name: payload.first_name,
                 last_name: payload.last_name,
                 email: payload.email,
+                is_staff: payload.is_staff,
             };
         case LOAD_CARS:
             return {
