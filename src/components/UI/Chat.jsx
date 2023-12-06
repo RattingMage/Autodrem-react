@@ -35,14 +35,14 @@ const Chat = ({disable, username,  repair_id, save_messages, state_messages}) =>
     const classes = useStyles();
 
     useEffect(() => {
-        //setMessages(state_messages);
+        setMessages(state_messages);
 
         const pusher = new Pusher('1b73ff2cb6205e81e98b', {
             cluster: 'eu',
             encrypted: true,
         });
 
-        const channel = pusher.subscribe(`chat`);
+        const channel = pusher.subscribe(`chat-${repair_id}`);
         channel.bind('message', (data) => {
             setMessages([...messages, data]);
         });
@@ -51,7 +51,7 @@ const Chat = ({disable, username,  repair_id, save_messages, state_messages}) =>
             channel.unbind_all();
             channel.unsubscribe();
         };
-    }, [messages, repair_id]);
+    }, [messages]);
 
     const handleSendMessage = async () => {
         if (newMessage.trim() !== '') {
@@ -60,14 +60,14 @@ const Chat = ({disable, username,  repair_id, save_messages, state_messages}) =>
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ text: newMessage, sender: username }),
+                body: JSON.stringify({ text: newMessage, sender: username, chat_id: repair_id }),
             });
 
             const data = await response.json();
             setMessages([...messages, data]);
             setNewMessage('');
-            //save_messages({messages: messages});
-            console.log(data)
+            save_messages({message: data});
+            console.log(messages)
         }
     };
 

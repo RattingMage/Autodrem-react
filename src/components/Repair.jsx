@@ -6,7 +6,7 @@ import {
 import Box from "@mui/material/Box";
 import Chat from "./UI/Chat";
 import {connect} from "react-redux";
-import {create_repair, save_messages} from "../actions/service";
+import {save_messages, update_repair} from "../actions/service";
 import {Paper, Typography} from "@mui/material";
 import {makeStyles} from "@material-ui/core/styles";
 import axios from "axios";
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Repair = ({username, password, is_staff, repair_id, state_messages, create_repair, save_messages}) => {
+const Repair = ({username, password, is_staff, repair_id, state_messages, update_repair, save_messages}) => {
     const classes = useStyles();
 
     const [problem, setProblem] = useState('');
@@ -53,7 +53,7 @@ const Repair = ({username, password, is_staff, repair_id, state_messages, create
     };
 
     const handleSave = () => {
-        create_repair({username: username, password: password, problem: problem})
+        update_repair({username: username, password: password, problem: problem, repair_id: repair_id})
         if(isRepairCreated) setIsRepairCreated((prevIsRepairCreated) => !prevIsRepairCreated);
     };
     const handleOpen = () => {
@@ -122,4 +122,4 @@ const mapStateToProps = state => ({
     state_messages: state.service.messages,
 });
 
-export default connect(mapStateToProps, {create_repair, save_messages})(Repair);
+export default connect(mapStateToProps, {update_repair, save_messages})(Repair);

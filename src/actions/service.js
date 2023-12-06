@@ -1,5 +1,5 @@
 import axios from "axios";
-import {LOAD_ORDER, CREATE_ORDER, ADD_ITEM, CREATE_REPAIR, SAVE_MESSAGES} from "../reducers/types";
+import {LOAD_ORDER, CREATE_ORDER, ADD_ITEM, CREATE_REPAIR, SAVE_MESSAGES, UPDATE_REPAIR} from "../reducers/types";
 
 export const load_order = (payload) => async dispatch => {
     const token = btoa(`${payload.username}:${payload.password}`);
@@ -19,7 +19,7 @@ export const load_order = (payload) => async dispatch => {
     }
 };
 
-export const creat_order = (payload) => async dispatch => {
+export const create_order = (payload) => async dispatch => {
     const token = btoa(`${payload.username}:${payload.password}`);
 
     const config = {
@@ -81,6 +81,27 @@ export const create_repair = (payload) => async dispatch => {
     }
 }
 
+export const update_repair = (payload) => async dispatch => {
+    const token = btoa(`${payload.username}:${payload.password}`);
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Basic ${token}`,
+        }
+    };
+
+    const body = JSON.stringify({problem: payload.problem});
+
+    try {
+        const res = await axios.patch(`http://127.0.0.1:8000/api/service/repair-requests/${payload.repair_id}/`, body, config);
+        const dt = {repair_request_id: res.data["id"]};
+        dispatch({type: UPDATE_REPAIR, payload: dt});
+    } catch (err) {
+        console.log(`${err}`);
+    }
+}
+
 export const save_messages = (payload) => dispatch => {
-    dispatch({type: SAVE_MESSAGES, payload: payload.messages});
+    dispatch({type: SAVE_MESSAGES, payload: payload});
 }

@@ -1,4 +1,4 @@
-import {LOAD_ORDER, CREATE_ORDER, ADD_ITEM, CREATE_REPAIR, SAVE_MESSAGES} from "./types";
+import {LOAD_ORDER, CREATE_ORDER, ADD_ITEM, CREATE_REPAIR, SAVE_MESSAGES, UPDATE_REPAIR} from "./types";
 
 const initialState = {
     order_id: null,
@@ -43,10 +43,15 @@ const serviceReducer = (state = initialState, action) => {
                 ...state,
                 repair_request: payload.repair_request_id
             }
+        case UPDATE_REPAIR:
+            return {
+                ...state,
+                repair_request: payload.repair_request_id
+            }
         case SAVE_MESSAGES:
             return {
                 ...state,
-                messages: [...state.messages, payload.messages]
+                messages: [...state.messages, payload.message]
             }
         default:
             console.log("default");

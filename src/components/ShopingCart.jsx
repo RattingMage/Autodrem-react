@@ -1,4 +1,3 @@
-// Импортируем необходимые компоненты из Material-UI
 import React, {useEffect, useState} from 'react';
 import {
     Button,
@@ -12,10 +11,10 @@ import {
     Typography
 } from '@mui/material';
 import {connect} from "react-redux";
-import {creat_order, load_order} from "../actions/service";
+import {create_order, load_order} from "../actions/service";
 import {Navigate} from "react-router-dom";
 
-const ShoppingCart = ({isAuthenticated, order_id, items, final_price, status, user, repair_request, user_id, username, password, load_order, creat_order}) => {
+const ShoppingCart = ({isAuthenticated, order_id, items, final_price, status, user, repair_request, user_id, username, password, load_order, create_order}) => {
     const [order, setOrder] = useState({
         order_id: null,
         items: [],
@@ -38,7 +37,7 @@ const ShoppingCart = ({isAuthenticated, order_id, items, final_price, status, us
             load_order({username: username, password: password, order_id: order_id});
         }
         else{
-            creat_order({username: username, password: password, final_price: 0, user_id: user_id});
+            create_order({username: username, password: password, final_price: 0, user_id: user_id});
             load_order({username: username, password: password, order_id: order_id});
         }
     }, []);
@@ -101,4 +100,4 @@ const mapStateToProps = state => ({
     password: state.auth.password,
 });
 
-export default connect(mapStateToProps, { load_order, creat_order })(ShoppingCart);
+export default connect(mapStateToProps, { load_order, create_order })(ShoppingCart);
