@@ -32,10 +32,15 @@ const Chat = ({disable, username,  repair_id, save_messages, state_messages}) =>
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
 
+    // const [isLoad, setIsLoad] = useState(false);
+
     const classes = useStyles();
 
     useEffect(() => {
-        setMessages(state_messages);
+        // if(!isLoad){
+        //     setMessages(state_messages);
+        //     setIsLoad(true);
+        // }
 
         const pusher = new Pusher('1b73ff2cb6205e81e98b', {
             cluster: 'eu',

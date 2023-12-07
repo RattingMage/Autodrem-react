@@ -68,21 +68,46 @@ const Repair = ({username, password, is_staff, repair_id, state_messages, update
                         <Typography variant="h6" gutterBottom>
                             Заявка #{request.id}
                         </Typography>
-                        <Typography variant="body1" gutterBottom>
-                            Проблема: {request.problem}
-                        </Typography>
-                        <Typography variant="body1" gutterBottom>
-                            Дедлайн выполнения: {request.execution_deadline || 'Не указан'}
-                        </Typography>
-                        <Typography variant="body1" gutterBottom>
-                            Стоимость: {request.cost ? `${request.cost} руб.` : 'Не указана'}
-                        </Typography>
-                        <Typography variant="body1" gutterBottom>
-                            Исполнители: {request.employees.length > 0 ? request.employees.join(', ') : 'Нет'}
-                        </Typography>
-                        <Typography variant="body1" gutterBottom>
-                            Услуги: {request.services.length > 0 ? request.services.join(', ') : 'Нет'}
-                        </Typography>
+                        <Box
+                            component="form"
+                            sx={{
+                                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                        >
+                            <div >
+                                <TextField
+                                    id="outlined-helperText"
+                                    label="Проблема"
+                                    defaultValue={request.problem}
+                                />
+                            </div>
+                            <TextField
+                                id="outlined-helperText"
+                                gutterBottom
+                                label="Дедлайн выполнения"
+                                defaultValue={request.execution_deadline || 'Не указан'}
+                            />
+                            <TextField
+                                id="outlined-helperText"
+                                gutterBottom
+                                label="Стоимость"
+                                defaultValue={request.cost ? `${request.cost} руб.` : 'Не указана'}
+                            />
+                            <TextField
+                                id="outlined-helperText"
+                                gutterBottom
+                                label="Исполнители"
+                                defaultValue={request.employees.length > 0 ? request.employees.join(', ') : 'Нет'}
+                            />
+                            <TextField
+                                id="outlined-helperText"
+                                gutterBottom
+                                label="Услуги"
+                                defaultValue={request.services.length > 0 ? request.services.join(', ') : 'Нет'}
+                            />
+                        </Box>
                         <Button variant="contained" color="primary" onClick={handleOpen}>
                             Открыть чат
                         </Button>

@@ -39,6 +39,7 @@ const serviceReducer = (state = initialState, action) => {
                 items: [...state.items, payload.item]
             }
         case CREATE_REPAIR:
+            console.log(payload.repair_request_id);
             return {
                 ...state,
                 repair_request: payload.repair_request_id
